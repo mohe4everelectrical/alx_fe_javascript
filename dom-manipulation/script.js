@@ -420,4 +420,147 @@ function init() {
 }
 
 init();
+// script.js
+// Dynamic Quote Generator with Web Storage + JSON Import/Export
+
+const LOCAL_STORAGE_KEY = "quotesData";
+const SESSION_STORAGE_KEY = "lastViewedQuote";
+
+// Step 1: Initialize quotes (load from localStorage if available)
+let quotes = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [
+  { text: "The best way to predict the future is to create it.", category: "Motivation" },
+  { text: "Simplicity is the soul of efficiency.", category: "Productivity" },
+  { text: "Code is like humor. When you have to explain it, it’s bad.", category: "Programming" },
+];
+
+// Step 2: Cache DOM elements
+const quoteDisplay = document.getElementById("quoteDisplay");
+const newQuoteBtn = document.getElementById("newQuote");
+const exportBtn = document.getElementById("exportQuotes");
+
+// Step 3: Show random quote
+function showRandomQuote() {
+  if (quotes.length === 0) {
+    quoteDisplay.textContent = "No quotes available.";
+    return;
+  }
+
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  const quote = quotes[randomIndex];
+
+  // Display quote
+  quoteDisplay.innerHTML = `
+    <p>"${quote.text}"</p>
+    <p style="font-style: italic; color: gray;">— ${quote.category}</p>
+  `;
+
+  // Save last viewed quote in sessionStorage
+  sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(quote));
+}
+
+// Step 4: Create form dynamically to add quotes
+function createAddQuoteForm() {
+  const formContainer = document.createElement("div");
+  formContainer.id = "addQuoteForm";
+
+  const textInput = document.createElement("input");
+  textInput.id = "newQuoteText";
+  textInput.type = "text";
+  textInput.placeholder = "Enter a new quote";
+
+  const categoryInput = document.createElement("input");
+  categoryInput.id = "newQuoteCategory";
+  categoryInput.type = "text";
+  categoryInput.placeholder = "Enter quote category";
+
+  const addButton = document.createElement("button");
+  addButton.textContent = "Add Quote";
+  addButton.addEventListener("click", addQuote);
+
+  formContainer.appendChild(textInput);
+  formContainer.appendChild(categoryInput);
+  formContainer.appendChild(addButton);
+
+  document.body.appendChild(formContainer);
+}
+
+// Step 5: Add new quote
+function addQuote() {
+  const text = document.getElementById("newQuoteText").value.trim();
+  const category = document.getElementById("newQuoteCategory").value.trim();
+
+  if (!text || !category) {
+    alert("Please fill in both fields!");
+    return;
+  }
+
+  quotes.push({ text, category });
+  saveQuotes();
+
+  document.getElementById("newQuoteText").value = "";
+  document.getElementById("newQuoteCategory").value = "";
+
+  alert("Quote added successfully!");
+}
+
+// Step 6: Save quotes to localStorage
+function saveQuotes() {
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(quotes));
+}
+
+// Step 7: Export quotes to JSON
+function exportQuotes() {
+  const data = JSON.stringify(quotes, null, 2);
+  const blob = new Blob([data], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "quotes.json";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  URL.revokeObjectURL(url);
+}
+
+// Step 8: Import quotes from JSON file
+function importFromJsonFile(event) {
+  const fileReader = new FileReader();
+  fileReader.onload = function (event) {
+    try {
+      const importedQuotes = JSON.parse(event.target.result);
+      if (Array.isArray(importedQuotes)) {
+        quotes.push(...importedQuotes);
+        saveQuotes();
+        alert("Quotes imported successfully!");
+      } else {
+        alert("Invalid JSON format: Expected an array.");
+      }
+    } catch (error) {
+      alert("Error importing file: " + error.message);
+    }
+  };
+  fileReader.readAsText(event.target.files[0]);
+}
+
+// Step 9: Load last viewed quote from sessionStorage
+function loadLastViewedQuote() {
+  const lastQuote = sessionStorage.getItem(SESSION_STORAGE_KEY);
+  if (lastQuote) {
+    const quote = JSON.parse(lastQuote);
+    quoteDisplay.innerHTML = `
+      <p>"${quote.text}"</p>
+      <p style="font-style: italic; color: gray;">— ${quote.category}</p>
+    `;
+  }
+}
+
+// Step 10: Event listeners
+newQuoteBtn.addEventListener("click", showRandomQuote);
+exportBtn.addEventListener("click", exportQuotes);
+
+// Initialize
+createAddQuoteForm();
+loadLastViewedQuote();
 
