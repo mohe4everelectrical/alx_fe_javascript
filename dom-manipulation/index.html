@@ -133,6 +133,45 @@
     <script src="script.js"></script>
   </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Quote Generator with Filtering</title>
+  </head>
+  <body>
+    <h1>Dynamic Quote Generator</h1>
+
+    <!-- Filter Section -->
+    <label for="categoryFilter"><strong>Filter by Category:</strong></label>
+    <select id="categoryFilter" onchange="filterQuotes()">
+      <option value="all">All Categories</option>
+      <!-- Dynamically populated categories -->
+    </select>
+
+    <div id="quoteDisplay">Click "Show New Quote" to begin!</div>
+
+    <button id="newQuote">Show New Quote</button>
+    <button id="exportQuotes">Export Quotes</button>
+
+    <br /><br />
+
+    <!-- Import from JSON -->
+    <input
+      type="file"
+      id="importFile"
+      accept=".json"
+      onchange="importFromJsonFile(event)"
+    />
+
+    <p>
+      You can import/export your quotes, or add your own below:
+    </p>
+
+    <script src="script.js"></script>
+  </body>
+</html>
 
 </html>
 
