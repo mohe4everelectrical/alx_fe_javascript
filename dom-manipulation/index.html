@@ -26,3 +26,80 @@
     <script src="script.js"></script>
   </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamic Quote Generator (with Storage & JSON)</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 28px; background: #f7f7f7; color: #222; }
+    h1 { margin-bottom: 12px; }
+    #quoteDisplay { background: #fff; padding: 18px; border-radius: 8px; margin: 12px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .controls { margin: 8px 0; }
+    input, button, select { padding: 8px 10px; margin: 6px 6px 6px 0; border-radius: 6px; border: 1px solid #ccc; }
+    button { cursor: pointer; background: #2c7; color: #fff; border: none; }
+    button.secondary { background: #3b82f6; }
+    .note { color: #666; font-size: 0.9rem; margin-top: 6px; }
+    #importFile { display: inline-block; }
+  </style>
+</head>
+<body>
+  <h1>Dynamic Quote Generator</h1>
+
+  <div class="controls">
+    <select id="categorySelect"></select>
+    <button id="newQuote">Show New Quote</button>
+    <button id="clearQuotesBtn" class="secondary">Clear All Saved Quotes</button>
+  </div>
+
+  <div id="quoteDisplay">Choose a category and click "Show New Quote".</div>
+
+  <hr />
+
+  <!-- The add-form, export/import controls will be created dynamically by JS -->
+  <div id="dynamicControls"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamic Quote Generator (with Storage & JSON)</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 28px; background: #f7f7f7; color: #222; }
+    h1 { margin-bottom: 12px; }
+    #quoteDisplay { background: #fff; padding: 18px; border-radius: 8px; margin: 12px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .controls { margin: 8px 0; }
+    input, button, select { padding: 8px 10px; margin: 6px 6px 6px 0; border-radius: 6px; border: 1px solid #ccc; }
+    button { cursor: pointer; background: #2c7; color: #fff; border: none; }
+    button.secondary { background: #3b82f6; }
+    .note { color: #666; font-size: 0.9rem; margin-top: 6px; }
+    #importFile { display: inline-block; }
+  </style>
+</head>
+<body>
+  <h1>Dynamic Quote Generator</h1>
+
+  <div class="controls">
+    <select id="categorySelect"></select>
+    <button id="newQuote">Show New Quote</button>
+    <button id="clearQuotesBtn" class="secondary">Clear All Saved Quotes</button>
+  </div>
+
+  <div id="quoteDisplay">Choose a category and click "Show New Quote".</div>
+
+  <hr />
+
+  <!-- The add-form, export/import controls will be created dynamically by JS -->
+  <div id="dynamicControls"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
